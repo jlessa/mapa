@@ -8,6 +8,7 @@ import Relatorios from './Relatorios/Relatorios';
 import NotFound from './NotFound/NotFound';
 import Dashboard from './Dashboard/Dashboard';
 import Usuarios from './Usuarios/Usuarios';
+import Admin from './Admin/Admin';
 
 class App extends Component {
   render() {
@@ -19,6 +20,7 @@ class App extends Component {
             <Route path="/questoes" component={Questoes}/>
             <Route path="/usuarios" component={Usuarios}/>
             <Route path="/relatorios" component={Relatorios}/>
+            <Route path="/admin" component={Admin}/>
             <Route component={NotFound} />
           </Switch>
         </Menu>
