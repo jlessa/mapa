@@ -50,7 +50,7 @@ class Admin extends React.Component {
     <TextField
           id={"standard-" + state}
           label={state}          
-          value= {this.getState(state)}                  
+          value= {this.state[state]}                  
           onChange={this.handleChange(state)}
           margin="normal"
         />
