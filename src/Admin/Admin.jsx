@@ -10,15 +10,19 @@ import Dialog from './Dialog';
 
 const API = 'http://127.0.0.1:5000/questao';
 
-const styles = theme => ({   
+const styles = theme => ({
   textField: {
-    margin: theme.spacing.unit 
+    margin: theme.spacing.unit
   },
   root: {
     flexGrow: 1,
   },
-  button:{
-    margin: theme.spacing.unit 
+  button: {
+    margin: theme.spacing.unit
+  },
+  iconButton:{
+    margin: theme.spacing.unit,
+    marginLeft: theme.spacing.unit *3 ,
   },
   div: {
     display: 'inline'
@@ -28,7 +32,7 @@ const styles = theme => ({
 
 class Admin extends React.Component {
 
-  
+
 
   constructor(props) {
     super(props);
@@ -37,7 +41,7 @@ class Admin extends React.Component {
       concurso: '',
       disciplina: '',
       assunto: '',
-      subassunto:'',
+      subassunto: '',
       tipo: '',
       codigo: '',
       enunciado: '',
@@ -50,7 +54,7 @@ class Admin extends React.Component {
       ano: '',
       banca: '',
       texto_opcoes: '',
-      lista_states: ['concurso','disciplina','assunto','subassunto','ano','banca','tipo','gabarito','enunciado','op1','op2','op3','op4','op5']
+      lista_states: ['concurso', 'disciplina', 'assunto', 'subassunto', 'ano', 'banca', 'tipo', 'gabarito', 'enunciado', 'op1', 'op2', 'op3', 'op4', 'op5']
     }
 
   }
@@ -59,7 +63,7 @@ class Admin extends React.Component {
     fetch(API)
       .then(response => response.json())
       .then(data => {
-        this.setState({ questoes: data.questao });        
+        this.setState({ questoes: data.questao });
 
       });
   }
@@ -80,86 +84,103 @@ class Admin extends React.Component {
 
   defineTextFieldTamanho(estado) {
     let espaco = 3;
-    switch(estado) {      
+    switch (estado) {
       case 'enunciado':
-        espaco = 12;
-        break;        
+        espaco = 11;
+        break;
       case 'op1':
-        espaco = 12;
-        break;  
+        espaco = 11;
+        break;
       case 'op2':
-        espaco = 12
-        break;  
+        espaco = 11
+        break;
       case 'op3':
-        espaco = 12;
-        break;  
+        espaco = 11;
+        break;
       case 'op4':
-        espaco = 12;
-        break;  
+        espaco = 11;
+        break;
       case 'op5':
-        espaco = 12;
-        break;  
+        espaco = 11;
+        break;
       default:
-        espaco = 2;
-        break;  
-    } 
+        espaco = 3;
+        break;
+    }
     return espaco;
   }
-  renderTextFieldStates(state){
+
+  renderEditaveis(state) {
     return (
-      <Grid item xs={this.defineTextFieldTamanho(state)}>
-        <TextField
+      <Grid container item xs={12}>
+        <Grid item xs={11}>
+          <TextField
             className={this.props.classes.textField}
+            fullWidth
             id={"standard-" + state}
-            label={state}          
-            value= {this.state[state]}                  
+            label={state}
+            value={this.state[state]}
             onChange={this.handleChange(state)}
             margin="normal"
-        />
-        {
-        state == 'enunciado' | state.includes('op') ?
-        <div className={this.props.classes.div}>
-            <IconButton 
+          />
+        </Grid>
+        <Grid item xs={1}>
+          <IconButton
             color="primary"
-            className={this.props.classes.button}
-            aria-label="Delete" 
+            className={this.props.classes.iconButton}
+            aria-label="Delete"
             onClick={this.handleClickDialogOpen}>
             <EditIcon />
           </IconButton>
-          <Dialog                            
-            open={this.state.open}
-            onClose={this.handleClose}
-            />    
-        </div>          
-        : null
-        }
-         
-        
-      </Grid>    
+        </Grid>
+      </Grid>
     )
   }
 
-  render() {    
+  renderTextFieldStates(state) {
+    return (
+      <Grid item xs={3}>
+        <TextField
+          className={this.props.classes.textField}
+          fullWidth
+          id={"standard-" + state}
+          label={state}
+          value={this.state[state]}
+          onChange={this.handleChange(state)}
+          margin="normal"
+        />
+      </Grid>
+    )
+  }
+
+  render() {
     return (
       <div className={this.props.classes.root}>
-      <Grid container alignItems="center" direction="row" spacing={16}>        
-        {
-          this.state.lista_states.map((state, index) => (
-            this.renderTextFieldStates(state)
-          ))
-        }        
-        <Grid item xs={12}>
-          <Button className={this.props.classes.button} variant="contained" color="primary">
-            Adicionar
+
+        <Grid container alignItems="center" direction="row" spacing={8}>
+          {
+            this.state.lista_states.map((state, index) => (
+              state == 'enunciado' | state.includes('op')
+                ? this.renderEditaveis(state)
+                : this.renderTextFieldStates(state)
+            ))
+          }
+          <Grid container item xs={12}>
+            <Button className={this.props.classes.button} variant="contained" color="primary">
+              Adicionar
           </Button>
-          <Button className={this.props.classes.button} variant="contained" color="secondary">
-            Cancelar
+            <Button className={this.props.classes.button} variant="contained" color="secondary">
+              Cancelar
           </Button>
-        </Grid>                
-      </Grid>                      
+          </Grid>
+        </Grid>
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+        />
       </div>
     )
   }
 }
 
-export default withStyles(styles) (Admin);
+export default withStyles(styles)(Admin);
