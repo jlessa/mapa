@@ -5,7 +5,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import QuestionAnswer from '@material-ui/icons/QuestionAnswer';
-import PeopleIcon from '@material-ui/icons/People';
+import VideocamIcon from '@material-ui/icons/Videocam';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import LayersIcon from '@material-ui/icons/Layers';
@@ -27,11 +27,11 @@ export const MenuItems = (
       </ListItemIcon>
       <ListItemText primary="Questões" />
     </ListItem>
-    <ListItem button component={Link} to='/usuarios'>
+    <ListItem button component={Link} to='/video'>
       <ListItemIcon>
-        <PeopleIcon />
+        <VideocamIcon />
       </ListItemIcon>
-      <ListItemText primary="Usuários" />
+      <ListItemText primary="Video" />
     </ListItem>
     <ListItem button component={Link} to='/relatorios'>
       <ListItemIcon>

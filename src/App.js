@@ -7,7 +7,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Relatorios from './Relatorios/Relatorios';
 import NotFound from './NotFound/NotFound';
 import Dashboard from './Dashboard/Dashboard';
-import Usuarios from './Usuarios/Usuarios';
+import VideoPlayer from './VideoPlayer/VideoPlayer';
 import Admin from './Admin/Admin';
 
 class App extends Component {
@@ -18,7 +18,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Dashboard}/>
             <Route path="/questoes" component={Questoes}/>
-            <Route path="/usuarios" component={Usuarios}/>
+            <Route path="/video" component={VideoPlayer}/>
             <Route path="/relatorios" component={Relatorios}/>
             <Route path="/admin" component={Admin}/>
             <Route component={NotFound} />
