@@ -8,7 +8,8 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Dialog from './Dialog';
 
-const API = 'http://127.0.0.1:5000/questao';
+//const API = 'http://127.0.0.1:5000/questao';
+const API = 'https://mapa-aprovacao.appspot.com/questao';
 
 const styles = theme => ({
   textField: {
@@ -32,11 +33,10 @@ const styles = theme => ({
 
 class Admin extends React.Component {
 
-
-
   constructor(props) {
     super(props);
     this.updatedialogtext = this.updatedialogtext.bind(this);
+    this.postQuestao = this.postQuestao.bind(this)
     this.state = {      
       open: false,
       stateDialog: 'op1',
@@ -68,6 +68,24 @@ class Admin extends React.Component {
         this.setState({ questoes: data.questao });
 
       });
+  }
+
+  postQuestao() {
+    let post_data = {}
+    this.state.lista_states.map((estado) => {
+      post_data[estado] = this.state[estado]
+    });
+    fetch(API, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'charset':'UTF-8'
+      },
+      body: JSON.stringify(
+        post_data
+      )
+    })
   }
 
   handleChange = name => event => {
@@ -173,7 +191,7 @@ class Admin extends React.Component {
             ))
           }
           <Grid container item xs={12}>
-            <Button className={this.props.classes.button} variant="contained" color="primary">
+            <Button className={this.props.classes.button} onClick={this.postQuestao} variant="contained" color="primary">
               Adicionar
           </Button>
             <Button className={this.props.classes.button} variant="contained" color="secondary">

@@ -9,7 +9,8 @@ import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { keys } from '@material-ui/core/styles/createBreakpoints';
 
-const API = 'http://127.0.0.1:5000/questao';
+//const API = 'http://127.0.0.1:5000/questao';
+const API = 'https://mapa-aprovacao.appspot.com/questao';
 
 class Dashboard extends React.Component {
 
