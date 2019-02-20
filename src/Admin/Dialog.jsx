@@ -14,14 +14,16 @@ class QuestaoDialog extends React.Component {
     handleClose = () => {
       this.props.onClose(this.props.selectedValue);
     };
-  
+    updatedialogtext = value =>{
+      this.props.updatedialogtext(value);
+    }
     render() {
       const { classes, onClose, selectedValue, ...other } = this.props;
   
       return (
         <Dialog onClose={this.handleClose} aria-labelledby="simple-dialog-title" {...other}>          
             <DialogContent>
-                <EditorQuestao/>            
+                <EditorQuestao updatedialogtext={this.props.updatedialogtext}/>            
             </DialogContent>            
         </Dialog>
       );

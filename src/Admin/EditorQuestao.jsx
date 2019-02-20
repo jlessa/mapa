@@ -30,8 +30,8 @@ class EditorQuestao extends React.Component {
     }
   
     handleChange(value) {
-      this.setState({ text: value, theme: 'snow' })
-      console.log(this.state.text);
+      this.setState({ text: value, theme: 'snow' })  
+      this.props.updatedialogtext(value);
     }
   
     render() {

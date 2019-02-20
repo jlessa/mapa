@@ -36,8 +36,10 @@ class Admin extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
+    this.updatedialogtext = this.updatedialogtext.bind(this);
+    this.state = {      
       open: false,
+      stateDialog: 'op1',
       concurso: '',
       disciplina: '',
       assunto: '',
@@ -72,14 +74,19 @@ class Admin extends React.Component {
     this.setState({ [name]: event.target.value });
   };
 
-  handleClickDialogOpen = () => {
+  handleClose = () =>{
+    this.setState({open: false })
+  }
+
+  handleClickDialogOpen = (stateName) => {
     this.setState({
       open: true,
+      stateDialog: stateName
     });
   };
 
-  handleClose = value => {
-    this.setState({ selectedValue: value, open: false });
+  updatedialogtext = (value) => {    
+    this.setState({ [this.state.stateDialog]: value});
   };
 
   defineTextFieldTamanho(estado) {
@@ -110,17 +117,17 @@ class Admin extends React.Component {
     return espaco;
   }
 
-  renderEditaveis(state) {
+  renderEditaveis(stateName) {
     return (
       <Grid container item xs={12}>
         <Grid item xs={11}>
           <TextField
             className={this.props.classes.textField}
             fullWidth
-            id={"standard-" + state}
-            label={state}
-            value={this.state[state]}
-            onChange={this.handleChange(state)}
+            id={"standard-" + stateName}
+            label={stateName}
+            value={this.state[stateName]}
+            onChange={this.handleChange(stateName)}
             margin="normal"
           />
         </Grid>
@@ -129,7 +136,7 @@ class Admin extends React.Component {
             color="primary"
             className={this.props.classes.iconButton}
             aria-label="Delete"
-            onClick={this.handleClickDialogOpen}>
+            onClick={()=>this.handleClickDialogOpen(stateName)}>
             <EditIcon />
           </IconButton>
         </Grid>
@@ -176,7 +183,8 @@ class Admin extends React.Component {
         </Grid>
         <Dialog
           open={this.state.open}
-          onClose={this.handleClose}
+          updatedialogtext={this.updatedialogtext}  
+          onClose = {this.handleClose}        
         />
       </div>
     )
