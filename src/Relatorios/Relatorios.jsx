@@ -1,18 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Hidden from '@material-ui/core/Hidden';
-import Button from '@material-ui/core/Button';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 import ListaQuestoes from './ListaQuestoes';
 
 //const API = 'http://127.0.0.1:5000/questao';
@@ -20,7 +7,7 @@ const API = 'https://mapa-aprovacao.appspot.com/questao';
 
 const styles = theme => ({
   mainFeaturedPost: {    
-    color: theme.palette.common.white,
+    //color: theme.palette.common.white,
     marginBottom: theme.spacing.unit ,
   },
   mainFeaturedPostContent: {
@@ -83,7 +70,11 @@ class Relatorios extends React.Component {
       <div>
         {
           this.state.questoes.map( questao => {
-            return(<ListaQuestoes className={this.props.classes.listaQuestao} questao={questao}/>)
+            return(
+              <div >
+                <ListaQuestoes key={questao} className={this.props.classes.listaQuestao} questao={questao}/>
+              </div>              
+            )
           })
         }
         

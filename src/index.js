@@ -7,7 +7,8 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
     
-    typography: {
+    typography: {        
+        useNextVariants: true,        
         fontFamily: ['Montserrat',"Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", 'sans-serif']
     }
 });

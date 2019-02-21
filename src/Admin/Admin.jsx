@@ -3,10 +3,10 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import EditorQuestao from './EditorQuestao';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Dialog from './Dialog';
+import SnackbarResponse from './SnackbarResponse';
 
 //const API = 'http://127.0.0.1:5000/questao';
 const API = 'https://mapa-aprovacao.appspot.com/questao';
@@ -36,9 +36,12 @@ class Admin extends React.Component {
   constructor(props) {
     super(props);
     this.updatedialogtext = this.updatedialogtext.bind(this);
-    this.postQuestao = this.postQuestao.bind(this)
+    this.postQuestao = this.postQuestao.bind(this);    
+    this.handleSnackbarClose = this.handleSnackbarClose.bind(this);
+
     this.state = {      
       open: false,
+      openSnack: false,
       stateDialog: 'op1',
       concurso: '',
       disciplina: '',
@@ -71,21 +74,29 @@ class Admin extends React.Component {
   }
 
   postQuestao() {
+    this.setState({openSnack: !this.state.openSnack});       
     let post_data = {}
     this.state.lista_states.map((estado) => {
       post_data[estado] = this.state[estado]
     });
-    fetch(API, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'charset':'UTF-8'
-      },
-      body: JSON.stringify(
-        post_data
-      )
-    })
+    
+    // fetch(API, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json',
+    //     'charset':'UTF-8'
+    //   },
+    //   body: JSON.stringify(
+    //     post_data
+    //   )
+    // })
+    // .then((response)=>{
+    //   console.log('Sucesso')  
+    // })
+    // .catch((error)=>{
+    //   console.log('Erro')  
+    // })
   }
 
   handleChange = name => event => {
@@ -105,6 +116,14 @@ class Admin extends React.Component {
 
   updatedialogtext = (value) => {    
     this.setState({ [this.state.stateDialog]: value});
+  };
+
+  cancelButtonClick = () => {
+    this.setState({openSnack: !this.state.openSnack});       
+  };
+
+  handleSnackbarClose = () => {
+    this.setState({openSnack: !this.state.openSnack});     
   };
 
   defineTextFieldTamanho(estado) {
@@ -185,7 +204,7 @@ class Admin extends React.Component {
         <Grid container alignItems="center" direction="row" spacing={8}>
           {
             this.state.lista_states.map((state, index) => (
-              state == 'enunciado' | state.includes('op')
+              state === 'enunciado' | state.includes('op')
                 ? this.renderEditaveis(state)
                 : this.renderTextFieldStates(state)
             ))
@@ -194,7 +213,7 @@ class Admin extends React.Component {
             <Button className={this.props.classes.button} onClick={this.postQuestao} variant="contained" color="primary">
               Adicionar
           </Button>
-            <Button className={this.props.classes.button} variant="contained" color="secondary">
+            <Button className={this.props.classes.button} onClick={this.cancelButtonClick} variant="contained" color="secondary">
               Cancelar
           </Button>
           </Grid>
@@ -204,6 +223,10 @@ class Admin extends React.Component {
           updatedialogtext={this.updatedialogtext}  
           onClose = {this.handleClose}        
         />
+
+        <SnackbarResponse 
+                          open={this.state.openSnack}
+                          onClose={this.handleSnackbarClose}/>
       </div>
     )
   }

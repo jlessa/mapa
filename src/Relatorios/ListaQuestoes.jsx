@@ -1,24 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Hidden from '@material-ui/core/Hidden';
 import Button from '@material-ui/core/Button';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-
-const API = 'https://mapa-aprovacao.appspot.com/questao';
 
 const styles = theme => ({
   mainFeaturedPost: {    
-    color: theme.palette.common.white,
+    //color: theme.palette.common.white,
     marginBottom: theme.spacing.unit ,
   },
   mainFeaturedPostContent: {
@@ -67,7 +60,7 @@ class ListaQuestoes extends React.Component {
             <Grid container>
               <Grid item md={12}>
                 <div className={this.props.classes.mainFeaturedPostContent}>                                  
-                  <Typography variant="h6" color="black" paragraph>
+                  <Typography variant="h6" paragraph>
                     {this.props.questao.enunciado}
                   </Typography>                
                 </div>
