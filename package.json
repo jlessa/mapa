@@ -17,8 +17,7 @@
     "video-react": "^0.13.2"
   },
   "scripts": {
-    "start": "set PORT=8080 && react-scripts start",
-    "deploy": "gcloud app deploy --project mapa-aprovacao-web",
+    "start": "react-scripts start",    
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
