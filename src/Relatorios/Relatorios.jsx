@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import ListaQuestoes from './ListaQuestoes';
 
 //const API = 'http://127.0.0.1:5000/questao';
-const API = 'https://mapa-aprovacao.appspot.com/questao';
+const API = 'https://mapa-aprovacao-api.herokuapp.com/questao';
 
 const styles = theme => ({
   mainFeaturedPost: {    

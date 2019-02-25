@@ -9,7 +9,7 @@ import Dialog from './Dialog';
 import SnackbarResponse from './SnackbarResponse';
 
 //const API = 'http://127.0.0.1:5000/questao';
-const API = 'https://mapa-aprovacao.appspot.com/questao';
+const API = 'https://mapa-aprovacao-api.herokuapp.com/questao';
 
 const styles = theme => ({
   textField: {
@@ -42,6 +42,7 @@ class Admin extends React.Component {
     this.state = {      
       open: false,
       openSnack: false,
+      snackMessage:'',
       stateDialog: 'op1',
       concurso: '',
       disciplina: '',
@@ -80,23 +81,23 @@ class Admin extends React.Component {
       post_data[estado] = this.state[estado]
     });
     
-    // fetch(API, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json',
-    //     'charset':'UTF-8'
-    //   },
-    //   body: JSON.stringify(
-    //     post_data
-    //   )
-    // })
-    // .then((response)=>{
-    //   console.log('Sucesso')  
-    // })
-    // .catch((error)=>{
-    //   console.log('Erro')  
-    // })
+    fetch(API, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'charset':'UTF-8'
+      },
+      body: JSON.stringify(
+        post_data
+      )
+    })
+    .then((response)=>{      
+      this.setState({openSnack: !this.state.openSnack, snackMessage:'Questão criada com Sucesso'});       
+    })
+    .catch((error)=>{      
+      this.setState({openSnack: !this.state.openSnack, snackMessage:'Erro ao criar Questão'});       
+    })
   }
 
   handleChange = name => event => {
@@ -225,8 +226,10 @@ class Admin extends React.Component {
         />
 
         <SnackbarResponse 
+                          snackMessage={this.state.snackMessage}
                           open={this.state.openSnack}
-                          onClose={this.handleSnackbarClose}/>
+                          onClose={this.handleSnackbarClose}                          
+                          />
       </div>
     )
   }
