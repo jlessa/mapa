@@ -1,6 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import ListaQuestoes from './ListaQuestoes';
+import axios from 'axios';
 
 //const API = 'http://127.0.0.1:5000/questao';
 const API = 'https://mapa-aprovacao-api.herokuapp.com/questao';
@@ -26,6 +27,8 @@ class Relatorios extends React.Component {
   constructor(props){
     super(props);
     this.state = {
+      isLoading: false,
+      error: null,
       value: 'female',
       questoes: [],      
       concurso: '',
@@ -44,7 +47,7 @@ class Relatorios extends React.Component {
       ano: '',
       banca: '',
       texto_opcoes: '',    
-    }
+    }    
   }
   componentDidMount(){    
     //console.log(JSON.parse(json))
@@ -53,11 +56,25 @@ class Relatorios extends React.Component {
   }
 
   callApi() {
-    fetch(API)
-      .then(response => response.json())
-      .then(data => {
-        this.setState({ questoes: data.questao });
-      });
+    console.log('chamando api');
+    axios.get(API)
+      .then(result => 
+        {          
+          this.setState({
+            questoes: result.data.questao,
+            isLoading: false
+          })
+        }
+      )
+      .catch(error =>
+        {          
+          this.setState({
+            error: error,
+            isLoading: false
+          })
+        }        
+      );    
+      
   }
 
   handleSelect = event => {
@@ -68,16 +85,11 @@ class Relatorios extends React.Component {
   render() {
     return (
       <div>
-        {
-          this.state.questoes.map( questao => {
-            return(
-              <div >
-                <ListaQuestoes key={questao} className={this.props.classes.listaQuestao} questao={questao}/>
-              </div>              
+        {       
+            this.state.questoes.map( questao =>                           
+              <ListaQuestoes key={questao.id} className={this.props.classes.listaQuestao} questao={questao}/>              
             )
-          })
-        }
-        
+        }        
       </div>
       
     );

@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Dialog from './Dialog';
 import SnackbarResponse from './SnackbarResponse';
+import axios from 'axios';
 
 //const API = 'http://127.0.0.1:5000/questao';
 const API = 'https://mapa-aprovacao-api.herokuapp.com/questao';
@@ -65,15 +66,6 @@ class Admin extends React.Component {
 
   }
 
-  callApi() {
-    fetch(API)
-      .then(response => response.json())
-      .then(data => {
-        this.setState({ questoes: data.questao });
-
-      });
-  }
-
   postQuestao() {
     this.setState({openSnack: !this.state.openSnack});       
     let post_data = {}
@@ -81,23 +73,17 @@ class Admin extends React.Component {
       post_data[estado] = this.state[estado]
     });
     
-    fetch(API, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'charset':'UTF-8'
-      },
-      body: JSON.stringify(
+    axios.post(API, {
+      data: JSON.stringify(
         post_data
       )
     })
-    .then((response)=>{      
-      this.setState({openSnack: !this.state.openSnack, snackMessage:'Questão criada com Sucesso'});       
-    })
-    .catch((error)=>{      
-      this.setState({openSnack: !this.state.openSnack, snackMessage:'Erro ao criar Questão'});       
-    })
+    // .then((response)=>{      
+    //   this.setState({openSnack: !this.state.openSnack, snackMessage:'Questão criada com Sucesso'});       
+    // })
+    // .catch((error)=>{      
+    //   this.setState({openSnack: !this.state.openSnack, snackMessage:'Erro ao criar Questão'});       
+    // })
   }
 
   handleChange = name => event => {
@@ -155,9 +141,9 @@ class Admin extends React.Component {
     return espaco;
   }
 
-  renderEditaveis(stateName) {
+  renderEditaveis(stateName, key) {
     return (
-      <Grid container item xs={12}>
+      <Grid key={key} container item xs={12}>
         <Grid item xs={11}>
           <TextField
             className={this.props.classes.textField}
@@ -182,9 +168,9 @@ class Admin extends React.Component {
     )
   }
 
-  renderTextFieldStates(state) {
+  renderTextFieldStates(state, key) {
     return (
-      <Grid item xs={3}>
+      <Grid  key={key} item xs={3}>
         <TextField
           className={this.props.classes.textField}
           fullWidth
@@ -206,8 +192,8 @@ class Admin extends React.Component {
           {
             this.state.lista_states.map((state, index) => (
               state === 'enunciado' | state.includes('op')
-                ? this.renderEditaveis(state)
-                : this.renderTextFieldStates(state)
+                ? this.renderEditaveis(state, index)
+                : this.renderTextFieldStates(state, index)
             ))
           }
           <Grid container item xs={12}>

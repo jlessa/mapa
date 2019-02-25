@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.1",
+    "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
@@ -17,7 +18,7 @@
     "video-react": "^0.13.2"
   },
   "scripts": {
-    "start": "react-scripts start",    
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
