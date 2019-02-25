@@ -9,8 +9,8 @@ import Dialog from './Dialog';
 import SnackbarResponse from './SnackbarResponse';
 import axios from 'axios';
 
-//const API = 'http://127.0.0.1:5000/questao';
-const API = 'https://mapa-aprovacao-api.herokuapp.com/questao';
+const API = 'http://127.0.0.1:5000/questao';
+//const API = 'https://mapa-aprovacao-api.herokuapp.com/questao';
 
 const styles = theme => ({
   textField: {
@@ -43,6 +43,7 @@ class Admin extends React.Component {
     this.state = {      
       open: false,
       openSnack: false,
+      snackColor:'',
       snackMessage:'',
       stateDialog: 'op1',
       concurso: '',
@@ -78,12 +79,12 @@ class Admin extends React.Component {
         post_data
       )
     })
-    // .then((response)=>{      
-    //   this.setState({openSnack: !this.state.openSnack, snackMessage:'Questão criada com Sucesso'});       
-    // })
-    // .catch((error)=>{      
-    //   this.setState({openSnack: !this.state.openSnack, snackMessage:'Erro ao criar Questão'});       
-    // })
+    .then((response)=>{      
+      this.setState({openSnack: true, snackMessage:'Questão criada com Sucesso', snackColor:'success'});       
+    })
+    .catch((error)=>{      
+      this.setState({openSnack: true, snackMessage:'Erro ao criar Questão', snackColor:'error'});       
+    })
   }
 
   handleChange = name => event => {
@@ -110,7 +111,7 @@ class Admin extends React.Component {
   };
 
   handleSnackbarClose = () => {
-    this.setState({openSnack: !this.state.openSnack});     
+    this.setState({openSnack: false});     
   };
 
   defineTextFieldTamanho(estado) {
@@ -213,6 +214,7 @@ class Admin extends React.Component {
 
         <SnackbarResponse 
                           snackMessage={this.state.snackMessage}
+                          color={this.state.snackColor}
                           open={this.state.openSnack}
                           onClose={this.handleSnackbarClose}                          
                           />

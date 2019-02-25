@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import green from '@material-ui/core/colors/green';
+import red from '@material-ui/core/colors/red';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 
 const styles = theme => ({
@@ -12,6 +13,10 @@ const styles = theme => ({
   },
   success: {
     backgroundColor: green[600],
+    fontWeigth: 'bold'
+  },
+  error: {
+    backgroundColor: red[600],
   },
   snackbar: {
     margin: theme.spacing.unit,
@@ -19,33 +24,27 @@ const styles = theme => ({
   },
 });
 
-const action = (
-  <Button color="secondary" size="small">
-    lorem ipsum dolorem
-  </Button>
-);
-
 class SnackbarResponse extends React.Component {
 
   render() {
     return (
       <div>
         <Snackbar
-          //className = {this.props.classes.success}
+          
           anchorOrigin={{
             vertical: 'top',
             horizontal: 'right',
           }}
           open={this.props.open}
-          autoHideDuration={2000}
-          onClose={this.props.onClose}
-          //message={this.props.snackMessage}
+          autoHideDuration={3000}
+          onClose={this.props.onClose}          
         >       
         <SnackbarContent
-            className={this.props.classes.snackbar}
-            message={this.props.snackMessage}            
+            className={this.props.classes[this.props.color]}
+            aria-describedby="client-snackbar"
+            message={this.props.snackMessage}                        
             onClose={this.props.onClose}
-            autoHideDuration={2000}
+            autoHideDuration={3000}            
           />
         </Snackbar>
         
