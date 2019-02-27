@@ -9,8 +9,8 @@ import Dialog from './Dialog';
 import SnackbarResponse from './SnackbarResponse';
 import axios from 'axios';
 
-const API = 'http://127.0.0.1:5000/questao';
-//const API = 'https://mapa-aprovacao-api.herokuapp.com/questao';
+// const API = 'http://127.0.0.1:5000/questao';
+const API = 'https://mapa-aprovacao-api.herokuapp.com/questao';
 
 const styles = theme => ({
   textField: {
