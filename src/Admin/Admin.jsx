@@ -111,7 +111,7 @@ class Admin extends React.Component {
   };
 
   handleSnackbarClose = () => {
-    this.setState({openSnack: false});     
+    this.setState({openSnack: false,snackMessage:'', snackColor:''});     
   };
 
   defineTextFieldTamanho(estado) {
